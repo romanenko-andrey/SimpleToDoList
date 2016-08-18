@@ -1,0 +1,69 @@
+
+<ion-view view-title="Database queries">
+  <ion-content>
+
+    <ion-list>
+      
+    <ion-item style="text-align:center">
+        <button class="button button-block button-balanced" ng-click="createTable()">
+            Reload table
+        </button>
+    </ion-item>
+      
+      
+     <ion-item ng-repeat="task in allLists">
+      <p class="normal-white-space">
+        <b>{{$index+1}}. </b>
+        Task: <b>{{task.task}}</b>
+       </p>
+       <p>ProjectName: <b>{{task.projectName}}</b>,</p>
+       
+       <p class='normal-white-space'>
+         Rating: <b>{{task.rating}}</b>,
+         Status: <b>{{task.status}}</b>,
+         CreatedBy: <b>{{task.postedBy.username}}</b>
+         
+      </p>
+    </ion-item>   
+    
+    <iom-item>
+      <h2>Queries:</h2>
+    </iom-item>  
+      
+    <ion-item class="item-button-right" ng-repeat="task in sqlTasks">
+      <h3 class="normal-white-space">
+        {{$index+1}}. {{task[0]}}
+      </h3>
+      <button class="button button-calm button-clear icon ion-paper-airplane" ng-click="sendQuery({{$index}})">
+      </button>
+      
+      <div class="row" ng-show="isSelected($index)">
+        <div class="col col-50">
+          <h3 class="sql-text-style">SQL query</h3>
+          <p  class="normal-white-space"> 
+            {{task[1]}}
+          </p>
+        </div>
+        <div class="col col-50">
+          <h3 class="mongo-text-style">Mongo query</h3>
+          <p  class="normal-white-space">
+            {{task[2]}}
+          </p>
+        </div>
+      </div>
+      <div class="row" ng-show="isSelected($index)">
+          <h3>Database response:</h3>
+      </div>
+      <div class="row" ng-show="isSelected($index)">
+        <p class="pre-line-white-space">
+          {{bdResponse}}</p>
+      </div>  
+    </ion-item>
+
+
+    </ion-list>
+    
+    
+  </ion-content>
+</ion-view>
+

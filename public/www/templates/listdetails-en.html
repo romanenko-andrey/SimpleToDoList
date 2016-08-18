@@ -1,0 +1,92 @@
+
+<ion-view view-title="Tasks">
+  <ion-content>
+     <div class="item item-divider item-calm">
+           <h2>
+              {{list.name}}
+          </h2>
+      </div>
+        
+      <ion-list show-delete="shouldShowDelete"
+          show-reorder="shouldShowReorder">
+        
+        <ion-item ng-repeat="task in list.tasks | orderBy : orderText : reverseSort">
+          
+          
+        <div class="row"> 
+          <div class="col col-75">
+
+            <p ng-class="{listdark:{{task.status}}}"><strong>{{task.task}}</strong></p>
+
+          </div>  
+
+
+          <div class="col col-25 text-right">
+            <button class="button button-small button-positive button-clear button-outline icon ion-shuffle" ng-click="openPopover($event)">
+            </button>
+
+            <button class="button button-small button-positive button-clear button-outline icon ion-edit" ng-click="showEditForm(task._id)">
+            </button>
+
+            <button class="button button-small button-positive button-clear button-outline icon ion-trash-a" ng-click="deleteTask(task._id)">
+            </button>
+         </div>
+
+      </div>
+    
+    
+      <footer class="calm">
+        <small>
+          {{task.rating}}<span class="icon ion-star"> </span> 
+           &nbsp;&nbsp;Deadline: {{task.deadline | date:'HH:mm MMM. dd, yyyy'}} 
+           <span ng-show="{{task.timeover}}">Overdue!</span>
+        </small>
+     </footer>
+    
+     </ion-item>
+   </ion-list>
+   
+    
+         
+  <div class="item item-divider" style="text-align:center">
+    <button class="button icon-left ion-plus button-balanced" ng-click="showEditForm(0)">
+      Add new task!
+    </button>
+  </div>
+   
+        
+  <div class="item item-divider">
+     <p>Totaly tasks: &nbsp; {{allTasks}}</p>
+     <p>Finished tasks: &nbsp; {{readyTasks}}</p>
+     <p>Overdue tasks: &nbsp; {{foolTasks}}</p>
+   </div>
+      
+      
+  <label for="singleSelect" class="item item-input item-select">
+    <div class="input-label">
+      Sort for:
+    </div>
+
+    <select name="singleSelect" ng-model="sortBy" ng-change="changeSort(sortBy)">
+      <option>task name</option>
+      <option>rating</option>
+      <option>ready status</option>
+      <option>deadline</option>
+    </select>
+  </label>
+      
+  <label for="reverseSelect" class="item item-input item-select">
+    <div class="input-label">
+      Sort for:
+    </div>
+    <select name="reverseSelect" ng-model="reverseBy" ng-change="changeReverseSort(reverseBy)">
+      <option>ascending</option>
+      <option>descending</option>
+    </select>
+  </label>
+      
+    
+      
+  </ion-content>
+</ion-view>
+

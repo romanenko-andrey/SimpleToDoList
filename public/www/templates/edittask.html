@@ -1,0 +1,49 @@
+<ion-modal-view>
+    
+  <ion-header-bar>
+    <h1 class="title">Редактирование</h1>
+    <div class="buttons">
+      <button class="button button-stable" ng-click="closeEditForm()">Х</button>
+    </div>
+      
+      
+  </ion-header-bar>
+  <ion-content>
+    <form id="editForm" name="editForm" ng-submit="doEdit(edition._id)">
+      <div class="list">
+        
+        <label class="item item-input row">
+           <span class="input-label col col-25">Задача</span>
+           <textarea class="icol col-75" name="task" ng-model="edition.task"cols="20" rows="2"></textarea>
+        </label>
+        
+        
+        <label class="item item-input item-select">
+          <span class="input-label">Приоритет задачи ({{edition.rating}})</span>
+            <select ng-model="edition.rating">
+                <option ng-repeat="n in [1,2,3,4,5,6,7,8,9,10]" value="{{n}}">{{n}}</option>
+            </select>
+        </label>
+          
+        <label class="item item-input">
+          <span>Статус готовности: {{edition.status2}}</span>
+                   
+          <input type="checkbox" ng-model="edition.status2"
+           ng-true-value="true" ng-false-value="false">
+   
+        </label>
+        
+           
+        <label class="item item-input">
+          <span class="input-label">Срок завершения</span>
+          <input type="datetime-local" ng-model="edition.deadtime">
+        </label>
+        
+          
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Запомнить изменения</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

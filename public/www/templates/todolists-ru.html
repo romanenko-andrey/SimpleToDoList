@@ -1,0 +1,61 @@
+  
+
+<ion-view view-title="СПИСКИ ВАШИХ ЗАДАЧ">
+
+
+<ion-header-bar class="bar bar-header bar-light">
+    <ul class="tabs tabs-top tabs-striped tabs-color-royal">
+        <li ng-class="{active:isSelected(1)}" class="tab-item">
+            <a ng-click="select(1)">Кратко</a></li>
+        <li ng-class="{active:isSelected(2)}" class="tab-item">
+            <a ng-click="select(2)">Расширенно</a></li>
+        <li ng-class="{active:isSelected(3)}" class="tab-item">
+            <a ng-click="select(3)">Статистика</a></li>
+     
+    </ul>
+</ion-header-bar>  
+
+<ion-content class="has-big-header">
+  
+    <ion-list>
+      <ion-item ng-repeat="list in todoLists" href="#/ru/todolists/{{list._id}}">
+        
+        <h2>
+          <span class="icon ion-calendar"></span>&nbsp;&nbsp;
+          <span>{{list.name}}</span>
+          <!--  
+          <span class="item-note">{{list.postedBy.username}}</span>
+          -->
+          <!--скрывающиеся кнопки удаления и редактирования-->
+          <ion-option-button class="button-calm icon ion-edit"  
+              ng-click="editNameList( list._id, list.name )">
+          </ion-option-button>
+
+          <ion-option-button class="button-assertive ion-trash-b"
+              ng-click="deleteList( list._id )">
+          </ion-option-button>
+        </h2>  
+        
+        <ul ng-show="isSelected(2)">
+          <li ng-repeat="task in list.tasks">
+             <p class="padding">
+                <span  ng-class="{listdark:{{task.status}}}">{{task.task}}</span>
+              
+             </p>
+
+          </li>  
+        </ul>
+        
+      </ion-item>
+    </ion-list>
+  
+    <ion-item style="text-align:center" ng-show="loggedIn()">
+        <button class="button icon-left ion-plus button-balanced button-large" ng-click="showAddListPopup()">
+            Добавить новый список
+        </button>
+    </ion-item>
+   
+  
+  </ion-content>
+
+</ion-view>

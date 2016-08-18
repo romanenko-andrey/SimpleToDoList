@@ -1,0 +1,104 @@
+
+<ion-view view-title="Текущие задачи">
+    <!-- кнопка в заголовке для выпадающего меню 
+    <ion-nav-buttons side="secondary">
+      <div class="buttons">
+        <button class="button button-icon icon ion-ios-more"
+          ng-click="openPopover($event)"></button>
+      </div>
+    </ion-nav-buttons>
+   --> 
+    
+    
+  <ion-content>
+    
+   
+      <div class="item item-divider item-calm">
+           <h2>
+              {{list.name}}
+          </h2>
+      </div>
+        
+      <ion-list show-delete="shouldShowDelete"
+          show-reorder="shouldShowReorder">
+        
+        <ion-item ng-repeat="task in list.tasks | orderBy : orderText : reverseSort">
+          
+          
+        <div class="row"> 
+          <div class="col col-75">
+
+            <p ng-class="{listdark:{{task.status}}}"><strong>{{task.task}}</strong></p>
+
+          </div>  
+
+
+          <div class="col col-25 text-right">
+            <button class="button button-small button-positive button-clear button-outline icon ion-shuffle" ng-click="openPopover($event)">
+            </button>
+
+            <button class="button button-small button-positive button-clear button-outline icon ion-edit" ng-click="showEditForm(task._id)">
+            </button>
+
+            <button class="button button-small button-positive button-clear button-outline icon ion-trash-a" ng-click="deleteTask(task._id)">
+            </button>
+         </div>
+
+      </div>
+    
+    
+      <footer class="calm">
+        <small>
+          {{task.rating}}<span class="icon ion-star"> </span> 
+           &nbsp;&nbsp;Выполнить до: {{task.deadline | date:'HH:mm MMM. dd, yyyy'}} 
+           <span ng-show="{{task.timeover}}">Просрочено!</span>
+        </small>
+     </footer>
+    
+     </ion-item>
+   </ion-list>
+   
+    
+         
+  <div class="item item-divider" style="text-align:center">
+    <button class="button icon-left ion-plus button-balanced" ng-click="showEditForm(0)">
+      Добавить новую задачу
+    </button>
+  </div>
+   
+        
+  <div class="item item-divider">
+     <p>Всего дел: &nbsp; {{allTasks}}</p>
+     <p>Выполнено дел: &nbsp; {{readyTasks}}</p>
+     <p>Просроченных дел: &nbsp; {{foolTasks}}</p>
+   </div>
+      
+      
+  <label for="singleSelect" class="item item-input item-select">
+    <div class="input-label">
+      Сортировка по:
+    </div>
+
+    <select name="singleSelect" ng-model="sortBy" ng-change="changeSort(sortBy)">
+      <option>имени задания</option>
+      <option>рейтингу</option>
+      <option>готовности</option>
+      <option>времени завершения</option>
+    </select>
+  </label>
+      
+  <label for="reverseSelect" class="item item-input item-select">
+    <div class="input-label">
+      Упорядочить по:
+    </div>
+    <select name="reverseSelect" ng-model="reverseBy" ng-change="changeReverseSort(reverseBy)">
+      <option>возрастанию</option>
+      <option>убыванию</option>
+    </select>
+  </label>
+      
+    
+      
+  </ion-content>
+</ion-view>
+

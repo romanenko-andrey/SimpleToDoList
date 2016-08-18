@@ -1,0 +1,48 @@
+/* Empty. Add your own CSS if you like */
+.has-big-header {top:100px}
+
+.popover {
+    height: 115px !important;
+    width: 275px !important;
+}
+
+.textarea-right-padding {padding-right: 20px}
+
+.item .badge{
+    float: right;
+    position: static;
+}
+
+.center {margin:0 auto}
+/* Empty. Add your own CSS if you like */
+
+.big-header {
+  right: 100px !important;
+  font-size: 75%
+}
+
+.listdark {text-decoration:line-through; color: forestgreen !important;}
+
+.normal-white-space {white-space : normal!important}
+
+.pre-line-white-space {white-space : pre-line!important}
+
+
+.sql-text-style {color: coral}
+
+.mongo-text-style {color: darkgreen}
+
+.about-with-foto {display:inline-block; width:300px}
+
+.about-text {display:inline-block; width:49%; padding:10px}
+
+@media screen and (max-width:640px) {
+  .about-with-foto {width : 50%}
+  .about-text {width:49%}
+}
+
+
+@media screen and (max-width:480px) {
+  .about-with-foto {width : 100%}
+  .about-text {width:100%}
+}

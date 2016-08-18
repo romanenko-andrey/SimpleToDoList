@@ -1,0 +1,30 @@
+<ion-modal-view>
+    
+  <ion-header-bar>
+    <h1 class="title">Добавить новый список</h1>
+    <div class="buttons">
+      <button class="button button-stable" ng-click="closeAddListModal()">Х</button>
+    </div>
+      
+      
+  </ion-header-bar>
+    
+  <ion-content>
+    <form id="newListForm" name="newListForm" ng-submit="submitNewList()">
+      <div class="list">
+               
+        <label class="item item-input">
+          <span class="input-label">Имя нового списка</span>
+          <input type="text" ng-model="newList.name">
+        </label>
+          
+               
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Добавить</button>
+        </label>  
+     
+        
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

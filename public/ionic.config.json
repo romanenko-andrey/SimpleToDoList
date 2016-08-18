@@ -1,0 +1,5 @@
+{
+  "name": "toDoListClient",
+  "app_id": "",
+  "proxies": [ { "path": "/#/ru", "proxyUrl": "http://localhost:3000" } ]
+}
