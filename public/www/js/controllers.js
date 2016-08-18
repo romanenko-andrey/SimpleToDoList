@@ -193,13 +193,13 @@ angular.module('myToDoList.controllers', [])
 
     var myPopup = $ionicPopup.show({
       template: '<input type="text" ng-model="newList.name">',
-      title: 'Add new task',
-      subTitle: 'Pleace, enter name of the new task',
+      title: 'Add new list <br> Добавить новый список',
+      subTitle: 'Pleace, enter name of the new task<br>Пожалуйста введите имя нового списка',
       scope: $scope,
       buttons: [
-        { text: 'Cancel (Отмена)' },
+        { text: 'Cancel Отмена' },
         {
-          text: '<b>Add (Добавить)</b>',
+          text: 'Add Добавить',
           type: 'button-positive',
           onTap: function(e) {
             if ($scope.newList.name) {
