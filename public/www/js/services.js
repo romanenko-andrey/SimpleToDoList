@@ -2,7 +2,7 @@ angular.module('myToDoList.services', [])
 
 //.constant("baseURL", "http://localhost:3000/")
 //.constant("baseURL", "https://expresstest-aromanenko.c9users.io/")
-.constant("baseURL", "https://todo-slist-roand.herokuapp.com/")
+.constant("baseURL", "https://todo-list-roand.herokuapp.com/")
 
 .factory('listFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
 
