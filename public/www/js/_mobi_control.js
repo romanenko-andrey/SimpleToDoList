@@ -31,7 +31,7 @@ angular.module('mobiCuisine.controllers', [])
 
   // Сохраняем данные введенные пользователем
   $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
+    console.debug('Doing login', $scope.loginData);
     $myLocalStorage.storeObject('userinfo',$scope.loginData);
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
@@ -62,7 +62,7 @@ angular.module('mobiCuisine.controllers', [])
 
   // функция обработчика Submit-операции
   $scope.doReserve = function() {
-    console.log('Doing reservation', $scope.reservation);
+    console.debug('Doing reservation', $scope.reservation);
 
     // Simulate a reservation delay. Remove this and replace with your reservation
     // code if using a server system
@@ -115,7 +115,7 @@ angular.module('mobiCuisine.controllers', [])
             $cordovaCamera.getPicture(options).then(function(imageData) {
                 $scope.registration.imgSrc = "data:image/jpeg;base64," + imageData;
             }, function(err) {
-                console.log(err);
+                console.debug(err);
             });
 
             $scope.registerform.show();
@@ -170,14 +170,14 @@ angular.module('mobiCuisine.controllers', [])
             };
     
             $scope.addFavorite = function (index) {
-                console.log("index is " + index);
+                console.debug("index is " + index);
                 favoriteFactory.addToFavorites(index);
 				//скрыть кнопки с полюсиком
                 $ionicListDelegate.closeOptionButtons();
 				
 				//добавить ввод нового уведомления в верхнюю строку мобилы
 				$ionicPlatform.ready(function () {
-					console.log('$ionicPlatform.ready');
+					console.debug('$ionicPlatform.ready');
                     
                     /* работает только на мобилах
 					$cordovaLocalNotification.schedule({
@@ -185,10 +185,10 @@ angular.module('mobiCuisine.controllers', [])
 						title: "Added Favorite",
 						text: $scope.dishes[index].name
 					}).then(function () {
-						console.log('Added Favorite '+$scope.dishes[index].name);
+						console.debug('Added Favorite '+$scope.dishes[index].name);
 					},
 					function () {
-						console.log('Failed to add Notification ');
+						console.debug('Failed to add Notification ');
 					});
 				
 					//показать уведомления
@@ -219,11 +219,11 @@ angular.module('mobiCuisine.controllers', [])
             
             $scope.sendFeedback = function() {
                 
-                console.log($scope.feedback);
+                console.debug($scope.feedback);
                 
                 if ($scope.feedback.agree && ($scope.feedback.mychannel == "")) {
                     $scope.invalidChannelSelection = true;
-                    console.log('incorrect');
+                    console.debug('incorrect');
                 }
                 else {
                     $scope.invalidChannelSelection = false;
@@ -231,7 +231,7 @@ angular.module('mobiCuisine.controllers', [])
                     $scope.feedback = {mychannel:"", firstName:"", lastName:"", agree:false, email:"" };
                     $scope.feedback.mychannel="";
                     $scope.feedbackForm.$setPristine();
-                    console.log($scope.feedback);
+                    console.debug($scope.feedback);
                 }
             };
         }])
@@ -268,7 +268,7 @@ angular.module('mobiCuisine.controllers', [])
             
             */
             $scope.addFavorite = function (index) {
-                console.log("index is " + index);
+                console.debug("index is " + index);
                 favoriteFactory.addToFavorites(index);
                 $scope.popover.hide();
                 $scope.showAlert();
@@ -285,7 +285,7 @@ angular.module('mobiCuisine.controllers', [])
                 scope: $scope
             }).then(function(popover) {
                // $scope.popover = popover;
-                console.log(popover)
+                console.debug(popover)
             });
         */    
             
@@ -309,7 +309,7 @@ angular.module('mobiCuisine.controllers', [])
            });
 
            alertPopup.then(function(res) {
-             console.log('Успешный выбор. Спасибо');
+             console.debug('Успешный выбор. Спасибо');
            });
          };   
        
@@ -332,7 +332,7 @@ angular.module('mobiCuisine.controllers', [])
 
           // Open the reserve modal
           $scope.openAddModal = function() {
-            console.log('show add modal')
+            console.debug('show add modal')
             $scope.commentForm.show();
           };
 
@@ -341,7 +341,7 @@ angular.module('mobiCuisine.controllers', [])
             $scope.submitComment = function () {
                 
                 $scope.mycomment.date = new Date().toISOString();
-                console.log($scope.mycomment);
+                console.debug($scope.mycomment);
                 
                 $scope.dish.comments.push($scope.mycomment);
                 //
@@ -374,7 +374,7 @@ angular.module('mobiCuisine.controllers', [])
     .controller('AboutController', ['$scope','leaders_from_app',  'baseURL', function($scope, leaders_from_app, baseURL) {
         $scope.baseURL = baseURL;
         $scope.leaders = leaders_from_app//corporateFactory.query();
-        //console.log($scope.leaders);
+        //console.debug($scope.leaders);
 
     }])
     //Любимые блюда
@@ -409,12 +409,12 @@ angular.module('mobiCuisine.controllers', [])
                 }, 1000);
             });
         
-        console.log($scope.dishes, $scope.favorites);
+        console.debug($scope.dishes, $scope.favorites);
        */
         
         $scope.toggleDelete = function () {
             $scope.shouldShowDelete = !$scope.shouldShowDelete;
-            console.log($scope.shouldShowDelete);
+            console.debug($scope.shouldShowDelete);
         };
 
         $scope.deleteFavorite = function (index) {
@@ -426,11 +426,11 @@ angular.module('mobiCuisine.controllers', [])
 
             confirmPopup.then(function (res) {
                 if (res) {
-                    console.log('Ok to delete');
+                    console.debug('Ok to delete');
                     favoriteFactory.deleteFromFavorites(index);
                    
                 } else {
-                    console.log('Canceled delete');
+                    console.debug('Canceled delete');
                 }
             });
         

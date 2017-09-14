@@ -22,7 +22,7 @@ router.use(bodyParser.json());
 router.route('/')
 
 	.get(function(req, res, next){
-	    console.log('get-query =', req.query);
+	    console.debug('get-query =', req.query);
 		//расшифровываем запрос		
 		var query = [];
 		for (q in req.query) {
@@ -30,14 +30,14 @@ router.route('/')
 			//при наличии преобразуем регулярное выражение
 			var r = req.query[q].match(/"(\$\w+)":{"(\w+)":"\$regExp\((.+)\)"/);
 			if (r) {
-				//console.log("regExp=", r);
+				//console.debug("regExp=", r);
 				var o1 = {};
 				o1[r[2]] = new RegExp(r[3]);
 				w[r[1]] = o1;
-				//console.log('reg-object=', w);
+				//console.debug('reg-object=', w);
 			} else
 				w = JSON.parse(req.query[q]);
-			//console.log(w, typeof w);
+			//console.debug(w, typeof w);
 			query.push (w);
 		};
 		
@@ -52,15 +52,15 @@ router.route('/')
 				res.json(lists);
 			}) 
 		}else { //тестовые задания
-			console.log('query=', query);
+			console.debug('query=', query);
 			AllTasks.aggregate(query, 
 				function (err, result) {
 				if (err) {
-					console.log(err);
+					console.debug(err);
 					res.json(err);
 				};
 				res.json(result);
-				console.log(result);
+				console.debug(result);
 			});
 		
 		}
@@ -68,14 +68,14 @@ router.route('/')
 	
 
 	.post(function(req, res, next){
-		console.log(req.body);
+		console.debug(req.body);
 		AllTasks.remove(function (err, list) {
 			if (err) next(err);
-			console.log('The AllLists was removed!');
+			console.debug('The AllLists was removed!');
 					
 			AllTasks.insertMany( req.body,  function (err, list) {
 				if (err) next(err);
-				console.log('Новый список создан! ' + list);
+				console.debug('Новый список создан! ' + list);
 				res.json(list);
 			});
 		});
@@ -94,7 +94,7 @@ router.route('/:listId')
             
 			list.remove(function (err, list) {
 				if (err) next(err);
-				console.log('The list was removed!');
+				console.debug('The list was removed!');
 				res.json(list);
 			});
 
@@ -103,9 +103,9 @@ router.route('/:listId')
 	
 router.route('/dbltask')	  
 	.get(function(req,res,next){
-		console.log('get-query =', req.query, typeof req.query);
+		console.debug('get-query =', req.query, typeof req.query);
 		
-		console.log('get-query[0] =', req.query[0], typeof req.query[0]);
+		console.debug('get-query[0] =', req.query[0], typeof req.query[0]);
 		//JSON.parse(req.query));
 		var query = {};
 		if (req.query[0]) 

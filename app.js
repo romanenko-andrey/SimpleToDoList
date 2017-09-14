@@ -43,7 +43,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'ошибка подключения:'));
 db.once('open', function () {
     // we're connected!
-    console.log("Подключение к базе данных - успешно");
+    console.debug("Подключение к базе данных - успешно");
 });
 
 //HTTP-сервер
@@ -81,8 +81,8 @@ passport.deserializeUser(User.deserializeUser());
 
 /*закоментировано для отладки содержания заголовков
 app.use(function(req, res, next) {
-  console.log(req.headers);
-  console.log('------------------------------------');        
+  console.debug(req.headers);
+  console.debug('------------------------------------');        
 
   next();
 }); */

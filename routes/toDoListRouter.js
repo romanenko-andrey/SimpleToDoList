@@ -31,8 +31,8 @@ router.route('/')
 		if (!req.decoded.admin) 
 		   req.query ["postedBy"] =  req.decoded._id;
 		
-		console.log('req.decoded=', req.decoded);
-		console.log('get-query =', req.query);
+		console.debug('req.decoded=', req.decoded);
+		console.debug('get-query =', req.query);
 		
 		ToDoLists.find(req.query)
             .populate('postedBy')
@@ -50,7 +50,7 @@ router.route('/')
 		
 		ToDoLists.create(req.body, function (err, list) {
 			if (err) next(err);
-           	console.log('Новый список создан!', list);
+           	console.debug('Новый список создан!', list);
 			res.json(list);
 		});
 		
@@ -73,8 +73,8 @@ router.route('/:listId')
             .populate('postedBy')
             .exec(function (err, list) {
 			
-			console.log(list.postedBy);
-			console.log(req.decoded._id);
+			console.debug(list.postedBy);
+			console.debug(req.decoded._id);
 			
 			if (list.postedBy._id != req.decoded._id)
 				{
@@ -91,11 +91,11 @@ router.route('/:listId')
 	.put(Verify.verifyOrdinaryUser, function(req, res, next){
         ToDoLists.findById(req.params.listId, function (err, list) {
             if (err) next(err);
-            console.log(list);
+            console.debug(list);
             list.name = req.body.name;
             list.save(function (err, list) {
                 if (err) next(err);
-                console.log('Имя списка дел было успешно изменено!');
+                console.debug('Имя списка дел было успешно изменено!');
                 res.json(list);
             });
         });
@@ -110,7 +110,7 @@ router.route('/:listId')
             if (list.postedBy == req.decoded._id || req.decoded.admin){ 
                 list.remove(function (err, list) {
                     if (err) next(err);
-                    console.log('The list was removed!');
+                    console.debug('The list was removed!');
                     res.json(list);
                 });
             } else {
@@ -131,7 +131,7 @@ router.route('/:listId/tasks')
    ToDoLists.findById(req.params.listId)
         .populate('postedBy')
         .exec(function (err, list) {
-        //console.log('toDoList = ', list);
+        //console.debug('toDoList = ', list);
         if (err) next(err);
         if (list.tasks) 
           res.json(list.tasks);
@@ -145,11 +145,11 @@ router.route('/:listId/tasks')
         
         list.tasks.push(req.body);
         
-        //console.log(req.body);
+        //console.debug(req.body);
         
         list.save(function (err, list) {
             if (err) next(err);
-            console.log('Дело добавлено в список!');
+            console.debug('Дело добавлено в список!');
             res.json(list);
         });
     });
@@ -173,7 +173,7 @@ router.route('/:listId/tasks')
 
 router.route('/:listId/tasks/:taskId')
 .get(Verify.verifyOrdinaryUser, function (req, res, next) {
-    console.log(req.params);
+    console.debug(req.params);
     ToDoLists.findById(req.params.listId)
         .populate('postedBy')
         .exec(function (err, list) {
@@ -213,7 +213,7 @@ router.route('/:listId/tasks/:taskId')
         list.tasks.push(req.body);
         list.save(function (err, list) {
             if (err) next(err);
-            console.log('Updated lists!');
+            console.debug('Updated lists!');
             res.json(list);
         });
     });

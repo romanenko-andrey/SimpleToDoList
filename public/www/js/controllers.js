@@ -49,7 +49,7 @@ angular.module('myToDoList.controllers', [])
 
    // Вход в систему при нажатии кнопки на форме
     $scope.doLogin = function() {
-        console.log('Doing login', $scope.loginData);
+        console.debug('Doing login', $scope.loginData);
         $localStorage.storeObject('userinfo', $scope.loginData);
         AuthFactory.login($scope.loginData);
         $scope.closeLogin();
@@ -77,7 +77,7 @@ angular.module('myToDoList.controllers', [])
  
   // Регистрация при нажатии кнопки на форме
     $scope.doRegister = function() {
-       console.log('Doing registration', $scope.registration);
+       console.debug('Doing registration', $scope.registration);
        AuthFactory.register($scope.registration);
        $scope.closeRegistartion();
     };
@@ -85,7 +85,7 @@ angular.module('myToDoList.controllers', [])
     $rootScope.$on('login:Successful', function () {
         $scope.loggedIn = AuthFactory.isAuthenticated();
         $scope.username = AuthFactory.getUsername();
-        //console.log('Доступ разрешен');
+        //console.debug('Доступ разрешен');
         //перейти на страничку с todolist
         if ($rootScope.appLang == "ru")
           $state.go('ru.todolists')
@@ -93,7 +93,7 @@ angular.module('myToDoList.controllers', [])
           $state.go('en.todolists');
       
         $rootScope.readToDoLists(function(){
-           //console.log('go to todolist')
+           //console.debug('go to todolist')
         });
         
        
@@ -114,7 +114,7 @@ angular.module('myToDoList.controllers', [])
     $scope.registration={};
        
     $scope.doRegister = function() {
-        //console.log('Doing registration', $scope.registration);
+        //console.debug('Doing registration', $scope.registration);
         AuthFactory.register($scope.registration);
     };
 }])
@@ -139,7 +139,7 @@ angular.module('myToDoList.controllers', [])
         function (response) {
             $rootScope.todoLists = response;
             $scope.showMenu = true;
-            console.log(response);
+            console.debug(response);
             if (callback) callback();
         },
         function (response) {
@@ -182,7 +182,7 @@ angular.module('myToDoList.controllers', [])
     };
   
     $scope.isReady = function (stat, task) {
-        console.log(task.task, task.status, stat)
+        console.debug(task.task, task.status, stat)
         return (task.status == "true");
     };
 
@@ -204,18 +204,18 @@ angular.module('myToDoList.controllers', [])
           onTap: function(e) {
             if ($scope.newList.name) {
               e.preventDefault();
-              //console.log('Новый список',  $scope.newList.name);
+              //console.debug('Новый список',  $scope.newList.name);
               
               listFactory.save($scope.newList) 
              .$promise.then(
                 function (response) {
-                    console.log(response);
+                    console.debug(response);
                     $rootScope.readToDoLists();
                     myPopup.close();
                 },
                 function (response) {
                     $scope.message = "Error: " + response.status + " " + response.statusText;
-                    console.log($scope.message);
+                    console.debug($scope.message);
                     myPopup.close();
                 });
             
@@ -233,14 +233,14 @@ angular.module('myToDoList.controllers', [])
 
   
   $scope.deleteList = function(listId) {
-      //console.log('deleting list id', listId);
+      //console.debug('deleting list id', listId);
       
       $ionicPopup.confirm({
           title: 'Deleting task (Удаление задачи)',
           template: 'You are realy want to delete the list? (Вы действительно хотите удалить этот список?)'
       }).then(function(res) {
           if(res) {
-            //console.log('Так решили Вы!');
+            //console.debug('Так решили Вы!');
             
             listFactory.delete({
                 id:listId 
@@ -248,7 +248,7 @@ angular.module('myToDoList.controllers', [])
             .$promise.then(
                   function (response) {
                       //обновим список
-                      console.log(response);
+                      console.debug(response);
                       $rootScope.readToDoLists();
                   },
                   function (response) {
@@ -261,7 +261,7 @@ angular.module('myToDoList.controllers', [])
                   }
               );
         } else {
-           //console.log('Вы отказались...');
+           //console.debug('Вы отказались...');
              
           }
           });
@@ -269,7 +269,7 @@ angular.module('myToDoList.controllers', [])
   };
   
  $scope.editNameList = function(listId, newName) {
-    console.log('edit name of list id', listId);
+    console.debug('edit name of list id', listId);
     $scope.newName = {};
     $scope.newName.name = newName;
     var myPopup = $ionicPopup.show({
@@ -285,19 +285,19 @@ angular.module('myToDoList.controllers', [])
           onTap: function(e) {
             if (newName) {
               e.preventDefault();
-              //console.log('Новое имя списка',  $scope.newName);
+              //console.debug('Новое имя списка',  $scope.newName);
                           
               listFactory.update(
                 {id : listId}, $scope.newName) 
              .$promise.then(
                 function (response) {
-                    console.log(response);
+                    console.debug(response);
                     $rootScope.readToDoLists();
                     myPopup.close();
                 },
                 function (response) {
                     $scope.message = "Error: " + response.status + " " + response.statusText;
-                    console.log($scope.message);
+                    console.debug($scope.message);
                     myPopup.close();
                 });
             
@@ -331,7 +331,7 @@ angular.module('myToDoList.controllers', [])
     $scope.shouldShowReorder = false;
     
     $scope.changeSort = function(setTab){
-      console.log(setTab);
+      console.debug(setTab);
       if (setTab == "имени задания" || setTab =="task name") {
             this.orderText = "task";
         } else if (setTab == "рейтингу" || setTab =="rating") {
@@ -347,7 +347,7 @@ angular.module('myToDoList.controllers', [])
       this.reverseSort = true;
       if (setTab === "возрастанию" || setTab === "ascending") 
         this.reverseSort = false;
-      console.log(setTab, this.reverseSort);
+      console.debug(setTab, this.reverseSort);
     };
   
     //$scope.list = 
@@ -361,7 +361,7 @@ angular.module('myToDoList.controllers', [])
             function (response) {
                 $rootScope.list = response;
                 $scope.showList = true;
-                // console.log(response);
+                // console.debug(response);
                 //определим просроченные задания
                 $scope.readyTasks = 0;
                 $scope.foolTasks = 0;
@@ -390,18 +390,18 @@ angular.module('myToDoList.controllers', [])
     //возвращает отдельную задачу по ее id
     $scope.getTask = function(task_id){
       
-      console.log('test for id=', task_id);
+      console.debug('test for id=', task_id);
       
       $scope.temp = taskFactory.get({
         id:$stateParams.id, taskId: task_id
       })
       .$promise.then(
             function (response) {
-                console.log(response);
+                console.debug(response);
             },
             function (response) {
                 $scope.message = "Error: " + response.status + " " + response.statusText;
-                console.log($scope.message);
+                console.debug($scope.message);
             }
         );
     };
@@ -409,14 +409,14 @@ angular.module('myToDoList.controllers', [])
     //удаляет отдельную задачу по ее id
     $scope.deleteTask = function(task_id){
       
-      console.log('test for id=', task_id);
+      console.debug('test for id=', task_id);
       
       $ionicPopup.confirm({
           title: 'Delete task (Удаление задачи)',
           template: 'Are you realy want to delete the task? (Вы действительно хотите удалить это задание?)'
       }).then(function(res) {
           if(res) {
-            //console.log('Так решили Вы!');
+            //console.debug('Так решили Вы!');
             
             taskFactory.delete({
                 id:$stateParams.id, 
@@ -425,7 +425,7 @@ angular.module('myToDoList.controllers', [])
             .$promise.then(
                   function (response) {
                       //обновим список
-                      console.log(response);
+                      console.debug(response);
                       $scope.getList();
                   },
                   function (response) {
@@ -438,7 +438,7 @@ angular.module('myToDoList.controllers', [])
                   }
               );
         } else {
-           //console.log('Вы отказались...');
+           //console.debug('Вы отказались...');
              
           }
           });
@@ -499,11 +499,11 @@ angular.module('myToDoList.controllers', [])
   // функция обработчика Submit-операции
   $scope.doEdit = function(task_id) {
     
-    console.log('test for id=', task_id);
+    console.debug('test for id=', task_id);
   
     if ($scope.edition.deadtime) {
        this.edition.deadline = $scope.edition.deadtime;
-       console.log(this.edition.deadline);
+       console.debug(this.edition.deadline);
     }
     
     
@@ -514,7 +514,7 @@ angular.module('myToDoList.controllers', [])
     $scope.changedTask.status =  $scope.edition.status2;
     //$scope.changedTask.status =  $scope.edition.status2=='YES' ? true : false;
     
-    console.log('Измененная задача',  $scope.changedTask);
+    console.debug('Измененная задача',  $scope.changedTask);
 
     if (task_id != 0 ) {
       
@@ -525,7 +525,7 @@ angular.module('myToDoList.controllers', [])
     .$promise.then(
           function (response) {
               //обновим список
-              //console.log(response);
+              //console.debug(response);
               $scope.getList();
               $rootScope.readToDoLists();
           },
@@ -543,7 +543,7 @@ angular.module('myToDoList.controllers', [])
         .$promise.then(
           function (response) {
               //обновим список
-              //console.log(response);
+              //console.debug(response);
               $scope.getList();
           },
           function (response) {
@@ -567,7 +567,7 @@ angular.module('myToDoList.controllers', [])
   
   $scope.changeStatus  =function(){
     $scope.edition.status2 = !$scope.edition.status2
-    console.log("edition.status:", $scope.edition.status2 )
+    console.debug("edition.status:", $scope.edition.status2 )
   };
   
   $scope.isAvailable = function(is_available){
@@ -633,14 +633,14 @@ angular.module('myToDoList.controllers', [])
   $scope.bdResponse = {};
   
   $scope.sendQuery = function (qNumber){
-     //console.log('Пример обработки запроса №'+qNumber);
-     //console.log(queriesFactory.getTask(qNumber));
+     //console.debug('Пример обработки запроса №'+qNumber);
+     //console.debug(queriesFactory.getTask(qNumber));
      $scope.selectedN = qNumber;
     
      queriesFactory.resourse.query(queriesFactory.getTask(qNumber)[2])
     .$promise.then(
         function (response) {
-            console.log(response);
+            console.debug(response);
             $scope.bdResponse = response;
            
            if (queriesFactory.getTask(qNumber).length>3) {
@@ -648,13 +648,13 @@ angular.module('myToDoList.controllers', [])
               queriesFactory.dublTask.query ( queriesFactory.getTask(qNumber)[3] )
              .$promise.then(
                 function(res){
-                  //console.log(queriesFactory.getTask(qNumber)[3]);
-                  //console.log('Ответ на второй запрос:', res)
+                  //console.debug(queriesFactory.getTask(qNumber)[3]);
+                  //console.debug('Ответ на второй запрос:', res)
                   $scope.bdResponse = res;
            
                 },
                 function(res){
-                  console.log(res)
+                  console.debug(res)
                 }
 
              );
@@ -662,7 +662,7 @@ angular.module('myToDoList.controllers', [])
         },
         function (response) {
             $scope.message = "Error: " + response.status + " " + response.statusText;
-            console.log( $scope.message);
+            console.debug( $scope.message);
             $scope.selectedN = {}
         }
     );
@@ -679,13 +679,13 @@ angular.module('myToDoList.controllers', [])
       listFactory.query(
         function (response) {
             $scope.todo = response;
-            //console.log("получено " + $scope.todo.length + " списков дел.");
+            //console.debug("получено " + $scope.todo.length + " списков дел.");
           
-            //console.log($scope.todo);
+            //console.debug($scope.todo);
           
             $scope.allLists = [];
             for (var i=0; i<$scope.todo.length; i++){
-                //console.log($scope.todo[i])
+                //console.debug($scope.todo[i])
                 for (var j=0; j<$scope.todo[i].tasks.length; j++){
                   var toSave = $scope.todo[i].tasks[j];
                   
@@ -696,25 +696,25 @@ angular.module('myToDoList.controllers', [])
                   $scope.allLists.push(toSave);
                 };
             };
-            //console.log('allList=', $scope.allLists)
+            //console.debug('allList=', $scope.allLists)
             
              queriesFactory.resourse.save($scope.allLists) 
              .$promise.then(
                 function (response) {
-                    //console.log(response);
+                    //console.debug(response);
                     $scope.allLists = response;
                   
                 },
                 function (response) {
                     $scope.message = "Error: " + response.status + " " + response.statusText;
-                    console.log($scope.message);
+                    console.debug($scope.message);
                 });
             
             
         },
         function (response) {
             $scope.message = "Error: " + response.status + " " + response.statusText;
-            console.log($scope.message);
+            console.debug($scope.message);
           
         });
     };
