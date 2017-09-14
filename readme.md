@@ -1,3 +1,8 @@
+Приложение запущено здесь
+https://todo-list-roand.herokuapp.com/
+
+Описание:
+
 Простой todo-list:
    - полностью адаптивное мобильное приложение
    - expressJS, ionicJS, angularJS
@@ -7,11 +12,6 @@
    - полный перечень стандарных операций со списками дел:
      - добавление, изменение статуса и наименования, удаление\
    - краткая информация обо мне
-
-
-
-приложение запущено здесь
-https://todo-list-roand.herokuapp.com/
 
 установка базы данных MondoDB
 >https://docs.mongodb.com/manual/installation/
