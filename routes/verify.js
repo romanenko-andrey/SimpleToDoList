@@ -41,7 +41,7 @@ exports.verifyOrdinaryUser = function (req, res, next) {
                 // .hash
                 // .id 
                 req.decoded = decoded;
-                console.debug('verify', decoded);
+                console.log('verify', decoded);
                 next();
             }
         });
@@ -74,7 +74,7 @@ exports.verifyAdmin = function (req, res, next) {
                 // .hash
                 // .id 
 				
-                console.debug(decoded);
+                console.log(decoded);
 				                
                 req.decoded = decoded;
                 if (req.decoded.admin) {

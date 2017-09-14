@@ -237,7 +237,7 @@ angular.module('myToDoList.services', [])
            title: 'В доступе отказано!',
            template: response.data.err.message
           }).then(function(res) {
-           console.debug('Доступ разрешен');
+           console.log('Доступ разрешен');
           });
          }
       );

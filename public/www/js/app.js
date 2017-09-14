@@ -36,22 +36,22 @@ angular.module('myToDoList', ['ionic', 'ngResource', 'myToDoList.controllers', '
     // установить обработчик события для ui-router
     // $stateChangeStart - начало запроса
     $rootScope.$on('$stateChangeStart', function () {
-        //console.debug('Loading ...');
+        //console.log('Loading ...');
         $rootScope.$broadcast('loading:show');
     });
 
     // установить обработчик события для ui-router
     // $stateChangeSuccess - по успеху выполнения запроса
     $rootScope.$on('$stateChangeSuccess', function () {
-       // console.debug('done');
+       // console.log('done');
         $rootScope.$broadcast('loading:hide');
-        //console.debug(window.location.hash);
+        //console.log(window.location.hash);
      
         if (window.location.hash.match(/#\/en\//)) 
             $rootScope.appLang = "en"
         else 
            $rootScope.appLang = "ru";
-        console.debug($rootScope.appLang);
+        console.log($rootScope.appLang);
     }); 
 })
 
